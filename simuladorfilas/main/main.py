@@ -1,3 +1,5 @@
+import sys
+sys.path.append('../')
 from padaria.cliente import Cliente
 from padaria.padaria import Padaria
 from evento.evento import Evento
@@ -11,7 +13,15 @@ import time
 # lista de eventos
 # "setando o inicio" (bootstrap como ta no slide)
 padaria = Padaria()
-eventoqualquer = Evento(1,0,0,4,padaria.FA1)
+
+#####MEUNU DE USUARIO#####
+chegada = input("Chegada: ")
+saida = input("Saida: ")
+desistencia = input("Desistencia: ")
+tempo_qqr = input("Tempo: ")
+eventoqualquer = Evento(chegada, saida, desistencia, tempo_qqr, padaria.FA1)
+
+#eventoqualquer = Evento(1,0,0,4,padaria.FA1)
 #clientequalquer = Cliente(1)
 le = []
 le.append(eventoqualquer) # eventos SAO ORDENADAOS POR ORDEM DE OCORRENCIA!

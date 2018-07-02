@@ -41,12 +41,10 @@ def unconglinear(a,c,m,s):
         u = x/ m
     return u
 
-def ungeraexp(s,lamb):
-    x =unconglinear(13445,0,2**31-1,s)  # ex: antede um cliente a cada 3 minutos: rate = 1/3 a formula é ln(1-x)/1/lamb que é a mesma coisa que multiplicar
-    res = (-(math.log(1 - x))) / lamb  # ex: 1/40 1 terremoto a cada 40 mins em algum lugar do mundo
+def ungeraexp(lamb,u):
+    #x =unconglinear(13445,0,2**31-1,s)  # ex: antede um cliente a cada 3 minutos: rate = 1/3 a formula é ln(1-x)/1/lamb que é a mesma coisa que multiplicar
+    res = (-(math.log(1 - u))) / lamb  # ex: 1/40 1 terremoto a cada 40 mins em algum lugar do mundo
     return res
-
-
 
 
 
@@ -62,16 +60,22 @@ def geradoreventos(vet,tipo,tempo):
     return evento
 '''
 
-'''
+''''''
 vetuni = []
-s = 5
-qtd = 5
-conglinear(13445,0,2**31-1,s,vetuni,qtd) # testando com 5 numeros e semente 5
+vetuni2 =[]
+vetuni3 = []
+#s = 5
+#qtd = 33000
+conglinear(13445,0,2**31-1,5000,vetuni,3600000//110) # testando com qtd numeros e semente USAR DIFERENTES SEMENTES!
+vetuni.sort()
+#conglinear(13445,0,2**31-1,s,vetuni2,40000)
+#conglinear(13445,0,2**31-1,s,vetuni2,40000)
 expat = geraexp(1/110,vetuni) # tempos de chegada da fila atendimento
-exppa = geraexp(1/90,vetuni) # tempos de saida da fila de atendimento e entrada da fila pagamento
-
+#exppa = geraexp(1/90,vetuni) # tempos de saida da fila de atendimento e entrada da fila pagamento
+#expat.sort()
+print(max(vetuni))
+print(ungeraexp(1/110,vetuni[0]))
 print(expat)
-print(exppa)
 
 '''
 

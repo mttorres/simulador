@@ -1,0 +1,46 @@
+temos 60 min:
+	3600000 ms
+	para 110 ms de intervalo entre as chegas(lambda 1/110)
+	temos ~ 32727 chegadas - >  33 mil numeros (isso se o tempo todo ocorrerem somente chegadas!)
+
+
+	 
+	90 ms entre a saidas, e consequentemente as chegadas nas outras filas: 40 mil numeros
+
+
+
+	TOTAL PARA COMPORTAR TODOS:
+
+	73 mil numeros...
+	(lambda 1/90)
+	+ as saidas da fila 2 : com processamento E[X] = 85: 43 mil numeros
+	
+	
+
+	TOTAL: 116 MIL NUMEROS
+
+
+
+le.sort(key = lambda evento: evento.tempo) # ordena os eventos por tempo que ocorre
+vetuni.remove(vetuni[0]) # remove esse tempo (nao pode chegar outro cara exatamente nesse mesmo tempo!
+le.append(evento0) # eventos SAO ORDENADAOS POR ORDEM DE OCORRENCIA!
+
+
+valores de interesse
+
+EWi1 = 0 # tempo medio que uma requisição permanece no sistema (somar o tempo de permanencia(saida - chegada) de todos)(fila1)
+EWi2 = 0 #
+EWt = 0 # EWi1 + probdesistenciaxEWi2
+ED = 0 # taxa de descarte (desistencias)?
+EDD = 0 # taxa de descarte mesmo K == 15?
+EK1 = 0 # tamanho medio da fila 1
+EK2 = 0 # tamanho medio da fila 2
+
+N = 0  # total de pessoas na padaria (todas as filas)
+NC = 0 # total de chegadas (1a fila) ( e consequentemente ao sistema)
+NS = 0 # total de saidas  fila 1 # pode desistir dps da fila 1
+NC2 = 0 # total de chegadas a fila 2 (nao desistiu)
+NS2 = 0 # total saidas fila 2
+NSS = 0 # numero de saidas do sistema
+
+

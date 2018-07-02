@@ -1,6 +1,7 @@
 import math
 import time
 from evento.evento import Evento
+
 ###### para varios valores########
 #gerador  n valores uniformes
 def conglinear(a,c,m,x,vet,n):
@@ -14,8 +15,8 @@ def conglinear(a,c,m,x,vet,n):
 # gerador exeponencial usando os valores uniformes
 def geraexp(lamb,vetuni):
     vetexp = []
-    for x in vetuni:                  # ex: 1/40 1 terremoto a cada 40 mins em algum lugar do mundo
-        res = (-(math.log(1-x)))/lamb # ex: antede um cliente a cada 3 minutos: rate = 1/3 a formula é ln(1-x)/1/lamb que é a mesma coisa que multiplicar
+    for x in vetuni:
+        res = (-(math.log(1-x)))/lamb
         vetexp.append(res)
     return vetexp
 
@@ -31,21 +32,37 @@ def geraexpdiscret(vetexp):
 ##### para um valor#####
 
 
-def unconglinear(a,c,m):
-    x = (time.time()* a + c) % m
-    u = x/ m
+def unconglinear(a,c,m,s):
+    if(s != 0):
+        x = ((s*a) + c)%m
+        u = x / m
+    else:
+        x = (time.time()* a + c) % m
+        u = x/ m
     return u
 
+def ungeraexp(s,lamb):
+    x =unconglinear(13445,0,2**31-1,s)  # ex: antede um cliente a cada 3 minutos: rate = 1/3 a formula é ln(1-x)/1/lamb que é a mesma coisa que multiplicar
+    res = (-(math.log(1 - x))) / lamb  # ex: 1/40 1 terremoto a cada 40 mins em algum lugar do mundo
+    return res
 
 
 
+
+
+
+
+
+
+
+''' TESTES
 def geradoreventos(vet,tipo,tempo):
     evento = Evento(tipo, vet[0]+tempo)
     vet.remove(vet[0])
     return evento
+'''
 
-
-
+'''
 vetuni = []
 s = 5
 qtd = 5
@@ -56,7 +73,7 @@ exppa = geraexp(1/90,vetuni) # tempos de saida da fila de atendimento e entrada 
 print(expat)
 print(exppa)
 
-
+'''
 
 
 '''

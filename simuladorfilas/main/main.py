@@ -9,6 +9,7 @@ import time
 
 # parametros:
 # ambos sao exponenciais, valores esperado de uma variavel com distribuição exponencial = 1/lambda
+# o a fila 1 chegada a cada 110ms , lambda= 1/110 e tem processamento 90 ms, fazendo a fila 2 ter chegada 1/90
 EX = 90 #  lembrando que ele quer que usemos E[X] = 90 ms como parametro (tempo medio para servir uma requisição)(lambda = 1/90 é aproximadamente 11 se a unidade for segundos)
 EC = 110 # lembrando que ele quer quer que usemos E[C] = 110 ms como parametro(intervalo de tempo medio entre chegadas(lambda= 1/100 é aproximadamente 9 se a unidade for segundos)
 ## USADOS PARA TESTE!##

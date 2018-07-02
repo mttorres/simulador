@@ -150,4 +150,13 @@ while timeLoop:
             mins = mins+1 # nao tem evento na lista
            # print("minutos: ", mins)
 
+<<<<<<< HEAD
 # OBS pf observem se eu nao esqueci de atualizar algum valor de interesse no loop...
+=======
+    if mins == tempomax:  # teste....
+        print("Simulação terminada")
+       # print(padaria.FA1)  # seria interessante criar um metodo str para o cliente para o print nao ficar feio kkk e facilitar debugar
+       # print(padaria.FA2)
+        print(le)  # tem que terminar vazia
+        break
+>>>>>>> 283342a022db6759d43e9031081f82c639ff3927

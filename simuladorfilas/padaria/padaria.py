@@ -16,3 +16,16 @@ class Padaria(object):
 
 
     # METODOS? CHEGADA , SAIDA ?
+    # codigo da fila
+    def pessoasemfila(self,cod):
+        if cod == 1:
+            return len(self.FA1)
+        if cod == 2:
+            return len(self.FA2)
+        if cod == 3:
+            return len(self.FAP)
+        if cod == 4:
+            return len(self.FP1)
+        if cod == 5:
+            return len(self.FP1)
+

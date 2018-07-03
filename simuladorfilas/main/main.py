@@ -99,7 +99,7 @@ while timeLoop:
                 print("descarte")
                 EDD = EDD + 1 # contando os descartes e dps fazer a media no final do programa EDD/total de chegadas
             #independente do descarte ou nao a chegada aconteceu e deve ser removida da lista e o tempo mins atualizado
-            mins += le[0].tempo
+            mins = le[0].tempo
             le.remove(le[0])  # removendo o evento atual
          #   print("minutos: ", mins)
                                                                                                     # esse evento acontece efetivamente após chegada + saida
@@ -126,7 +126,7 @@ while timeLoop:
                 #EDD = EDD+1 # descarte
                 ED = ED+1 # "calote" PREJUIZO!(descarte da fila 2)
 
-             mins += le[0].tempo - le[0].cheg # atualiza o minuto com o intervalo de tempo até o evento de processamento e mudança de fila acontecer efetivamente
+             mins = le[0].tempo - le[0].cheg # atualiza o minuto com o intervalo de tempo até o evento de processamento e mudança de fila acontecer efetivamente
              le.remove(le[0])  # removendo o evento atual
           #   print("minutos: ", mins)
 
@@ -142,7 +142,7 @@ while timeLoop:
             else:
                 print("isso nao deveria acontecer")
                 print("ele nao deveria tentar remover alguem da fila 2 sem ter ninguem!?")
-            mins += le[0].tempo - le[0].cheg
+            mins = le[0].tempo - le[0].cheg
             le.remove(le[0])  # removendo o evento atual
            # print("minutos: ", mins)
 

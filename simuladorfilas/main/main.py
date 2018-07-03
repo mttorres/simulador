@@ -7,7 +7,7 @@ from gerador.gerador import conglinear, geraexp, unconglinear, geraexpdiscret,un
 
 
 #estados: definido pelo N das filas
-# eventos: CHEGADA,SAIDA,DESISTIU(?), DE UMA FILA EM UM CERTO TEMPO
+# eventos: CHEGADA,SAIDA,DESISTIU, DE UMA FILA EM UM CERTO TEMPO
 
 # parametros:
 # ambos sao exponenciais, valores esperado de uma variavel com distribuição exponencial = 1/lambda
@@ -80,9 +80,9 @@ while timeLoop:
             print("Chegou um evento!")
             print("tempo",le[0].tempo)
             c = Cliente()
+            N += 1
+            NC+= 1
             if (padaria.pessoasemfila(1) < K):
-                N += 1
-                NC+= 1
                 padaria.FA1.append(c) # jogou na fila 1
                 #gerar proxima chegada e a saida desse que chegou agora
                 eventoch = Evento(0, ungeraexp(1 / EC, vetuni[0]), 1)
@@ -111,7 +111,7 @@ while timeLoop:
                 # processar o evento de saida da fila 1!
                 NC2 += 1
                 cliente = padaria.FA1.popleft() # devolve o cara que saiu dessa fila... # e que deve entrar na segunda fila!
-                cliente.a_pagar = 1.50 # um valor qualquer para pagar
+                cliente.a_pagar = 1.00 # um valor qualquer para pagar
                 padaria.FP1.append(cliente)
                 # gerar a saida desse cara da fila 2
                 eventosa = Evento(1, ungeraexp(1/85, vetuni3[0])+le[0].tempo, 2)

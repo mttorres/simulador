@@ -22,13 +22,13 @@ tempomax = 3600000 # 60min simulacao
 # VETORES DE NUMEROS ALEATORIOS ENTRE 0 E 1
 vetuni = [] # vetor unitario com x numeros entre 0 e 1 # ~32 mil numeros (chegada fila 1)(lamb / 110)
 conglinear(13445,0,2**31-1,5000,vetuni,tempomax//EC)
-vetuni.sort()
+#vetuni.sort()
 vetuni2 =[] # 40 mil numeros (saida fila 1) e chegada fila 2 (usa semente maior para fazer as saidas tenderem a serem maior que as chegadas)
 conglinear(13445,0,2**31-1,15000,vetuni2,tempomax//EX)
-vetuni2.sort()
+#vetuni2.sort()
 vetuni3 = [] # ~42 mil numeros (saida fila 2)
 conglinear(13445,0,2**31-1,20000,vetuni3,tempomax//EY)
-vetuni3.sort()
+#vetuni3.sort()
 
 #medidas de interesse
 EWi1 = 0 # tempo medio que uma requisição permanece no sistema
@@ -39,7 +39,7 @@ EDD = 0 # taxa de descarte mesmo K == 15
 EK1 = 0 # tamanho medio da fila 1
 EK2 = 0 # tamanho medio da fila 2
 utilizacaof1 = (1/EC)*EX # utilização do recurso? é simplesmente lambda*e[x] de cada fila usaremos para o grafico só
-utilizacaof2 = (1/EX)*85
+utilizacaof2 = (1/EX)*EY
 
 # lista de eventos
 # "setando o inicio" (bootstrap como ta no slide)
@@ -66,6 +66,8 @@ while timeLoop:
     if (mins >= tempomax):
         print("simulação encerrada!")
         print(le)
+        print(padaria.FA1)
+        print(padaria.FP1)
         print("total de chegadas a padaria/fila1: ",NC)
         print("total de saidas da fila1", NS)
         print("total de chegadas a fila da fila2", NC2)
@@ -73,10 +75,12 @@ while timeLoop:
         print("total de descarte em f1: ", EDD)
         print("total de CALOTES em f2: ", ED)
         print("Prejuizo: ", padaria.recebeu - padaria.deveriareceber)
-        print("tempo medio que uma requisição permanece em f1",EWi1/(NC-EDD)) # tempo de cada requisição menos as descartadas
-        print("tempo medio que uma requisição permanece em f2",EWi2 / (NC2 - ED))  # tempo de cada requisição menos as desistencias
+        print("tempo medio que uma requisição permanece em f1",EWi1/(NS)) # tempo de cada requisição menos as descartadas
+        print("tempo medio que uma requisição permanece em f2",EWi2 / (NS2))  # tempo de cada requisição menos as desistencias
         print("tamanho medio da fila f1:",EK1/NC)
         print("tamanho medio da fila f2:", EK2 / NC)
+        print("utilização da fila f1:", utilizacaof1)
+        print("utilização da fila f2:", utilizacaof2)
         print(len(vetuni))
         print(len(vetuni2))
         print(len(vetuni3))
@@ -90,6 +94,8 @@ while timeLoop:
             c = Cliente()
             N += 1
             NC += 1                                                   # apesar que vetuni tende a se esgotar antes de vetuni2...
+            EK1 += padaria.pessoasemfila(1)  # calcular o tamanho medio
+            EK2 += padaria.pessoasemfila(2)  # fila 2 pode ja ter alguem e se manter durante aquele instante
             if (padaria.pessoasemfila(1) < K and (len(vetuni2) > 0)):   # pode ainda gerar eventos de saida? senao nao deixa adicionar
                 padaria.FA1.append(c) # jogou na fila 1
                 #gerar proxima chegada(gerada sempre) e a saida desse que chegou agora
@@ -105,12 +111,12 @@ while timeLoop:
             #independente do descarte ou nao a chegada aconteceu e deve ser removida da lista e o tempo mins atualizado
             # e tambem uma nova chegada deve ser gerada
 
-            EK1 += padaria.pessoasemfila(1) # calcular o tamanho medio
-            EK2 += padaria.pessoasemfila(2) # fila 2 pode ja ter alguem e se manter durante aquele instante
+
             if(len(vetuni) > 0): # gera outra chegada
                 eventoch = Evento(0, ungeraexp(1 / EC, vetuni[0]), 1)
                 vetuni.remove(vetuni[0])  # remove da lista de valores 0,1 para nao ter repetições
                 le.append(eventoch)  # adicionando os novos
+
 
             le.remove(le[0])  # removendo o evento atual
             le.sort(key=lambda evento: evento.tempo)  # ordenada a lista de eventos
@@ -127,12 +133,11 @@ while timeLoop:
              NS+=1 # saida da fila 1
              EWi1 += le[0].tempo - le[0].cheg # (saida - chegada) (intervalo efetivo) de cada elemento na fila 1
              NC2 += 1
-             padaria.deveriareceber += 1.00 # deveria receber um valor de +1.00$
+             cliente = padaria.FA1.popleft()  # devolve o cara que saiu dessa fila... # e que deve entrar na segunda fila!
+             cliente.a_pagar = 1.00  # um valor qualquer para pagar
+             padaria.deveriareceber += cliente.a_pagar  # deveria receber um valor de +1.00$
              if (padaria.pessoasemfila(2) < K and len(vetuni3) > 0):
                 # processar o evento de saida da fila 1!
-
-                cliente = padaria.FA1.popleft() # devolve o cara que saiu dessa fila... # e que deve entrar na segunda fila!
-                cliente.a_pagar = 1.00 # um valor qualquer para pagar
                 padaria.FP1.append(cliente)
                 # gerar a saida desse cara da fila 2
                 eventosa = Evento(1, ungeraexp(1/85, vetuni3[0])+le[0].tempo, 2)
@@ -144,8 +149,7 @@ while timeLoop:
                 print("desistiu") # ou descarte da fila 2
                 ED = ED+1 # "calote" (descarte da fila 2)
 
-             EK1 += padaria.pessoasemfila(1)
-             EK2 += padaria.pessoasemfila(2)
+
              le.remove(le[0])  # removendo o evento atual
              le.sort(key=lambda evento: evento.tempo)
             # if (len(le) > 0):
@@ -168,8 +172,7 @@ while timeLoop:
                 print("isso nao deveria acontecer")
                 print("ele nao deveria tentar remover alguem da fila 2 sem ter ninguem!?")
 
-            EK1 += padaria.pessoasemfila(1)
-            EK2 += padaria.pessoasemfila(2)
+
             le.remove(le[0])  # removendo o evento atual
             le.sort(key=lambda evento: evento.tempo)
             if(len(le) > 0 ):

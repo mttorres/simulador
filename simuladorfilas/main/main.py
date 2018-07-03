@@ -101,7 +101,6 @@ while timeLoop:
                 EDD = EDD + 1 # contando os descartes e dps fazer a media no final do programa EDD/total de chegadas
 
             #independente do descarte ou nao a chegada aconteceu e deve ser removida da lista e o tempo mins atualizado
-<<<<<<< HEAD
             # e tambem uma nova chegada deve ser gerada
 
             EK1 += padaria.pessoasemfila(1) # calcular o tamanho medio
@@ -111,9 +110,6 @@ while timeLoop:
                 vetuni.remove(vetuni[0])  # remove da lista de valores 0,1 para nao ter repetições
                 le.append(eventoch)  # adicionando os novos
 
-=======
-            mins = le[0].tempo
->>>>>>> d8e5061f213cffd87c5eaa375dde648be960fb5e
             le.remove(le[0])  # removendo o evento atual
             le.sort(key=lambda evento: evento.tempo)  # ordenada a lista de eventos
             #if (len(le) > 0):
@@ -145,12 +141,8 @@ while timeLoop:
                 print("desistiu") # ou descarte da fila 2
                 ED = ED+1 # "calote" (descarte da fila 2)
 
-<<<<<<< HEAD
              EK1 += padaria.pessoasemfila(1)
              EK2 += padaria.pessoasemfila(2)
-=======
-             mins = le[0].tempo - le[0].cheg # atualiza o minuto com o intervalo de tempo até o evento de processamento e mudança de fila acontecer efetivamente
->>>>>>> d8e5061f213cffd87c5eaa375dde648be960fb5e
              le.remove(le[0])  # removendo o evento atual
              le.sort(key=lambda evento: evento.tempo)
             # if (len(le) > 0):
@@ -172,13 +164,9 @@ while timeLoop:
             else:
                 print("isso nao deveria acontecer")
                 print("ele nao deveria tentar remover alguem da fila 2 sem ter ninguem!?")
-<<<<<<< HEAD
 
             EK1 += padaria.pessoasemfila(1)
             EK2 += padaria.pessoasemfila(2)
-=======
-            mins = le[0].tempo - le[0].cheg
->>>>>>> d8e5061f213cffd87c5eaa375dde648be960fb5e
             le.remove(le[0])  # removendo o evento atual
             le.sort(key=lambda evento: evento.tempo)
             if(len(le) > 0 ):
@@ -187,11 +175,7 @@ while timeLoop:
 
            # print("minutos: ", mins)
 
-<<<<<<< HEAD
     elif(len(le)==0):
             mins = tempomax # nao tem evento na lista
             print(mins)
         # print("minutos: ", mins)
-=======
-# OBS pf observem se eu nao esqueci de atualizar algum valor de interesse no loop...
->>>>>>> d8e5061f213cffd87c5eaa375dde648be960fb5e

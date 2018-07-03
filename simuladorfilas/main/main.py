@@ -1,3 +1,5 @@
+import sys
+sys.path.append('../')
 from padaria.cliente import Cliente
 from padaria.padaria import Padaria
 from evento.evento import Evento

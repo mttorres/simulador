@@ -47,12 +47,25 @@ def ungeraexp(lamb,u):
     return res
 
 
+''''
+tempomax = 3600000
+EC = 110
+EX = 90
+
+vetuni = [] # vetor unitario com x numeros entre 0 e 1 # ~32 mil numeros (chegada fila 1)(lamb / 110)
+conglinear(13445,0,2**31-1,5000,vetuni,tempomax//EC)
+vetuni.sort() # ordenados...
+vetuni2 =[] # 40 mil numeros (saida fila 1) e chegada fila 2 (usa semente maior para fazer as saidas tenderem a serem maior que as chegadas)
+conglinear(13445,0,2**31-1,15000,vetuni2,tempomax//EX)
+vetuni2.sort()
+vetuni3 = [] # ~42 mil numeros (saida fila 2)
+conglinear(13445,0,2**31-1,20000,vetuni3,tempomax//85)
+vetuni3.sort()
 
 
-
-
-
-
+print(vetuni[1])
+print(ungeraexp(1 / EC, vetuni[1]))
+'''
 ''' TESTES
 def geradoreventos(vet,tipo,tempo):
     evento = Evento(tipo, vet[0]+tempo)
@@ -60,7 +73,7 @@ def geradoreventos(vet,tipo,tempo):
     return evento
 '''
 
-''''''
+'''
 vetuni = []
 vetuni2 =[]
 vetuni3 = []
@@ -77,10 +90,10 @@ print(max(vetuni))
 print(ungeraexp(1/110,vetuni[0]))
 print(expat)
 
-'''
 
 
-'''
+
+
 vet = []
 conglinear(13445,0,2**31-1,5,vet,1000)
 vetexp = geraexp(1/110,vet) 

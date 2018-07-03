@@ -14,7 +14,9 @@ from gerador.gerador import conglinear, geraexp, unconglinear, geraexpdiscret,un
 # o a fila 1 chegada a cada 110ms , lambda= 1/110 e tem processamento 90 ms, fazendo a fila 2 ter chegada 1/90
 EX = 90 # entrada Guto
 #EC = 110 Entrada guto
+
 EC = int(input("EC: "))
+EY = int(input("EY: "))
 tempomax = 3600000 # 60min simulacao
 
 # VETORES DE NUMEROS ALEATORIOS ENTRE 0 E 1
@@ -25,7 +27,7 @@ vetuni2 =[] # 40 mil numeros (saida fila 1) e chegada fila 2 (usa semente maior 
 conglinear(13445,0,2**31-1,15000,vetuni2,tempomax//EX)
 vetuni2.sort()
 vetuni3 = [] # ~42 mil numeros (saida fila 2)
-conglinear(13445,0,2**31-1,20000,vetuni3,tempomax//85)
+conglinear(13445,0,2**31-1,20000,vetuni3,tempomax//EY)
 vetuni3.sort()
 
 #medidas de interesse

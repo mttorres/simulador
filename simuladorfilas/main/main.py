@@ -137,7 +137,7 @@ while timeLoop:
                 N -= 1 # 1 saida do sistema (total de pessoas no sistema diminui)
                 NS2+= 1 # uma saida da fila 2
                 NSS+= 1 # adiciona uma saida do sistema
-                cliente = padaria.FA1.popleft()
+                cliente = padaria.FP1.popleft()
                 padaria.recebeu += cliente.a_pagar  # padaria recebeu + 9.50
             else:
                 print("isso nao deveria acontecer")

@@ -68,7 +68,7 @@ while timeLoop:
         print(le)
         print("total de chegadas a padaria/fila1: ",NC)
         print("total de saidas da fila1", NS)
-        print("total de chegadas a fila da fila2", NS2)
+        print("total de chegadas a fila da fila2", NC2)
         print("total de saidas da padaria: ", NSS)
         print("total de descarte em f1: ", EDD)
         print("total de CALOTES em f2: ", ED)
@@ -126,10 +126,11 @@ while timeLoop:
              print("saida fila 1!")
              NS+=1 # saida da fila 1
              EWi1 += le[0].tempo - le[0].cheg # (saida - chegada) (intervalo efetivo) de cada elemento na fila 1
+             NC2 += 1
              padaria.deveriareceber += 1.00 # deveria receber um valor de +1.00$
-             if (padaria.pessoasemfila(2) < K and padaria.pessoasemfila(1) > 0 and len(vetuni3) > 0):
+             if (padaria.pessoasemfila(2) < K and len(vetuni3) > 0):
                 # processar o evento de saida da fila 1!
-                NC2 += 1
+
                 cliente = padaria.FA1.popleft() # devolve o cara que saiu dessa fila... # e que deve entrar na segunda fila!
                 cliente.a_pagar = 1.00 # um valor qualquer para pagar
                 padaria.FP1.append(cliente)

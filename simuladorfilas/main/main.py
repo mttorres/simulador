@@ -9,12 +9,14 @@ import time
 #estados: definido pelo N das filas
 # eventos: CHEGADA,SAIDA,DESISTIU(?), DE UMA FILA EM UM CERTO TEMPO
 #todo: FAZER UMA ENTRADA QUE ESCOLHA O VALOR DE EC!
+#Done.
+
 # parametros:
 # ambos sao exponenciais, valores esperado de uma variavel com distribuição exponencial = 1/lambda
 # o a fila 1 chegada a cada 110ms , lambda= 1/110 e tem processamento 90 ms, fazendo a fila 2 ter chegada 1/90
 EX = 90 #  lembrando que ele quer que usemos E[X] = 90 ms como parametro (tempo medio para servir uma requisição)(lambda = 1/90 é aproximadamente 11 se a unidade for segundos)
-EC = 110 # lembrando que ele quer quer que usemos E[C] = 110 ms como parametro(intervalo de tempo medio entre chegadas(lambda= 1/100 é aproximadamente 9 se a unidade for segundos)
-
+#EC = 110 # lembrando que ele quer quer que usemos E[C] = 110 ms como parametro(intervalo de tempo medio entre chegadas(lambda= 1/100 é aproximadamente 9 se a unidade for segundos)
+EC = int(input("EC: "))
 tempomax = 3600000 # 60 MINUTOS tempo de simulação (nao é realmente necessário ser tempo real)
 # como EC pode mudar (de acordo com o enunciado do trabalho)(diferentes experimentos) seria interessante deixar generico
 # e o EC ser definido por entrada!
@@ -63,7 +65,7 @@ NSS = 0 # numero de saidas do sistema
 K = 15
 while timeLoop:
     #print("minutos: ",mins)
-    if (mins == tempomax):
+    if (mins >= tempomax):
         print("simulação encerrada!")
         print(le)
         print("total de chegadas a padaria/fila1: ",NC)
@@ -101,7 +103,7 @@ while timeLoop:
                 print("descarte")
                 EDD = EDD + 1 # contando os descartes e dps fazer a media no final do programa EDD/total de chegadas
             #independente do descarte ou nao a chegada aconteceu e deve ser removida da lista e o tempo mins atualizado
-            mins += le[0].tempo
+            mins = le[0].tempo
             le.remove(le[0])  # removendo o evento atual
          #   print("minutos: ", mins)
                                                                                                     # esse evento acontece efetivamente após chegada + saida
@@ -128,7 +130,7 @@ while timeLoop:
                 #EDD = EDD+1 # descarte
                 ED = ED+1 # "calote" PREJUIZO!(descarte da fila 2)
 
-             mins += le[0].tempo - le[0].cheg # atualiza o minuto com o intervalo de tempo até o evento de processamento e mudança de fila acontecer efetivamente
+             #mins += le[0].tempo - le[0].cheg # atualiza o minuto com o intervalo de tempo até o evento de processamento e mudança de fila acontecer efetivamente
              le.remove(le[0])  # removendo o evento atual
           #   print("minutos: ", mins)
 
@@ -139,17 +141,18 @@ while timeLoop:
                 N -= 1 # 1 saida do sistema (total de pessoas no sistema diminui)
                 NS2+= 1 # uma saida da fila 2
                 NSS+= 1 # adiciona uma saida do sistema
-                cliente = padaria.FA1.popleft()
+                cliente = padaria.FP1.popleft()
                 padaria.recebeu += cliente.a_pagar  # padaria recebeu + 9.50
             else:
                 print("isso nao deveria acontecer")
                 print("ele nao deveria tentar remover alguem da fila 2 sem ter ninguem!?")
-            mins += le[0].tempo - le[0].cheg
+            #mins += le[0].tempo - le[0].cheg
             le.remove(le[0])  # removendo o evento atual
            # print("minutos: ", mins)
 
-        else:
-            mins = mins+1 # nao tem evento na lista
-           # print("minutos: ", mins)
+    elif(len(le)==0):
+        mins = tempomax # nao tem evento na lista
+        print(mins)
+        # print("minutos: ", mins)
 
 # OBS pf observem se eu nao esqueci de atualizar algum valor de interesse no loop...
